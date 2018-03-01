@@ -19,19 +19,26 @@
     data () {
       return {}
     },
-    mounted(){
+    created () {
+
+    },
+    mounted () {
       // let windowHeight = document.body.clientHeight;
       // console.log(document.body.clientHeight);
+    },
+    watch: {
+
     }
   }
 </script>
 
 <style>
-  html,body{
+  html, body {
     height: 100%;
     margin: 0;
     padding: 0;
   }
+
   #app {
     font-family: 'Microsoft YaHei', 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

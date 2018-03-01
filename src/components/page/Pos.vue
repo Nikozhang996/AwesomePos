@@ -40,7 +40,7 @@
               <ul>
                 <li v-for="(item,index) in oftenGoods" :key="index" @click="addOrderList(item)">
                   <span>{{item.goodsName}}</span>
-                  <span class="o-price">{{item.price}}</span>
+                  <span class="o-price">{{item.price | fn}}</span>
                 </li>
               </ul>
             </div>
@@ -114,17 +114,20 @@
             goodsName: '可口可乐',
             price: 8,
             count: 1
-          }, {
+          },
+          {
             goodsId: 1,
             goodsName: '香辣鸡腿堡',
             price: 15,
             count: 1
-          }, {
+          },
+          {
             goodsId: 13,
             goodsName: '爱心薯条',
             price: 8,
             count: 1
-          }, {
+          },
+          {
             goodsId: 14,
             goodsName: '甜筒',
             price: 8,
@@ -141,7 +144,10 @@
       }
     },
     created () {
+      this.tableData = JSON.parse(localStorage.getItem('tableData')) || this.tableData;
+
       this.getOftenGoods();
+
       this.getTypeGoods();
     },
     mounted () {
@@ -164,6 +170,7 @@
         this.typeGoods.setmeal = setmeal;
       },
 
+
       addOrderList (item) {
         let isHave = this.tableData.some(value => value.goodsId === item.goodsId);
 
@@ -181,11 +188,23 @@
           this.tableData = [...this.tableData];
         }
       },
-      delSingleGoods(item) {
+      delSingleGoods (item) {
+        // 清除本地存储数据
+        localStorage.clear();
+
         this.tableData = this.tableData.filter(value => value.goodsId !== item.goodsId);
       },
-      delAllGoods(){
+      delAllGoods () {
         this.tableData = [];
+      }
+    },
+    watch: {
+      // 监听点菜数据变化，并写入本地存储
+      tableData: {
+        handler() {
+          localStorage.setItem('tableData', JSON.stringify(this.tableData));
+        },
+        deep:true
       }
     }
   };

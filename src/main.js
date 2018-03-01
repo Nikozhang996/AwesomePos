@@ -6,7 +6,9 @@ import router from './router';
 import store from './store'
 
 Vue.use(ElementUI);
-
+Vue.filter('fn',function (value) {
+  return '￥' + value;
+});
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
@@ -14,4 +16,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-})
+});
